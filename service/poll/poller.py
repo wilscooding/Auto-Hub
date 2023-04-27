@@ -17,7 +17,7 @@ def get_vin():
     content = json.loads(response.content)
     for auto in content["autos"]:
         AutomobileVO.objects.update_or_create(
-            vin=auto["vin"],
+            import_href=auto["href"],
             defaults={"vin": auto["vin"]}
         )
 def poll():

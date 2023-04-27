@@ -1,5 +1,4 @@
 import React from "react"
-import { useState } from "react-router-dom";
 
 class AppointmentList extends React.Component{
     constructor(props) {
@@ -70,7 +69,8 @@ class AppointmentList extends React.Component{
                     <th>VIN</th>
                     <th>is VIP?</th>
                     <th>Customer</th>
-                    <th>Date Scheduled</th>
+                    <th>Date</th>
+                    <th>Time</th>
                     <th>Technician</th>
                     <th>Reason</th>
                     <th>Status</th>
@@ -78,6 +78,9 @@ class AppointmentList extends React.Component{
             </thead>
             <tbody>
                 {this.state.appointments.map(appointment => {
+                    const date = new Date(appointment.date_time).toLocaleDateString();
+                    const time = new Date(appointment.date_time).toLocaleTimeString([], {timeStyle: 'short'});
+
 
                     let visible = ""
                     if (appointment.status !== "active"){
@@ -88,7 +91,8 @@ class AppointmentList extends React.Component{
                         <td>{appointment.vin}</td>
                         <td>{appointment.vip_status ? "Yes" : "No"} </td>
                         <td>{appointment.customer}</td>
-                        <td>{appointment.date_time}</td>
+                        <td>{date}</td>
+                        <td>{time}</td>
                         <td>{appointment.technician.employee_id}</td>
                         <td>{appointment.reason}</td>
                         <td><button onClick={()=>this.handleCanceled(appointment.id)} to="" className="btn btn-danger">Cancel</button></td>

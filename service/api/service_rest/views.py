@@ -26,13 +26,18 @@ class AppointmentEncoder(ModelEncoder):
         "status",
         "customer",
         "vin",
-        "technician",
-        "vip_status",
         "id",
+        "technician",
+
     ]
     encoders={
         "technician":TechnicianEncoder(),
     }
+    def get_extra_data(self, o):
+        count = AutomobileVO.objects.filter(vin=o.vin).count()
+        return {"vip_status": count > 0}
+
+
 
 @require_http_methods(["GET", "POST"])
 def list_technicians(request):
@@ -74,12 +79,10 @@ def list_appointments(request):
             )
             response.status_code = 400
             return response
-
+        
+        content["vip_status"] = AutomobileVO.objects.filter(vin=content["vin"]).exists()
         appointment = Appointment.objects.create(**content)
-        if AutomobileVO.objects.filter(vin=content["autos"]).exists():
-            content["vip_status"] = True
-        else:
-            content["vip_status"] = False
+        
         return JsonResponse(
             appointment,
             encoder=AppointmentEncoder,
