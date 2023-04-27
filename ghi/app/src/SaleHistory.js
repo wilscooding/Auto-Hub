@@ -1,10 +1,39 @@
 import React, { useState, useEffect } from "react";
 
 function Salesperson() {
-  const [salespeople, setSalespeople] = useState([]);
+  const [salesPeople, setSalespeople] = useState([]);
   const [sales, setSales] = useState([]);
-  const [filteredSales, setFilteredSales] = useState([]);
+  const [filterSales, setFiltersales] = useState("");
 
+  // const fetchSalesData = async () => {
+  //   try {
+  //     const salesUrl = "http://localhost:8090/api/sales";
+  //     const response = await fetch(salesUrl);
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setSales(data.sales);
+  //     } else {
+  //       throw new Error("Failed to fetch sales data");
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  // const fetchSalespersonData = async () => {
+  //   try {
+  //     const salespersonUrl = "http://localhost:8090/api/salespeople/";
+  //     const response = await fetch(salespersonUrl);
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setSalespersons(data.salespersons);
+  //     } else {
+  //       throw new Error("Failed to fetch salesperson data");
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   const fetchData = async () => {
     const response = await fetch("http://localhost:8090/api/salespeople");
     const salesResponse = await fetch("http://localhost:8090/api/sales/");
@@ -24,10 +53,8 @@ function Salesperson() {
   }, []);
 
   const handleSalespersonChange = (event) => {
-    const person = event.target.value;
-    const filtered = sales.filter((sale) => sale.salesperson_id == person);
-    setFilteredSales(filtered);
-    console.log(filtered);
+    const value = event.target.value;
+    setFiltersales(value);
   };
 
   return (
@@ -39,13 +66,13 @@ function Salesperson() {
         <select
           className="form-select"
           onChange={handleSalespersonChange}
-          value={filteredSales}
+          value={filterSales}
           name="salesperson"
           required
           id="salesperson"
         >
           <option value="">Select salesperson</option>
-          {salespeople.map((salesperson) => (
+          {salesPeople.map((salesperson) => (
             <option key={salesperson.id} value={salesperson.id}>
               {salesperson.first_name} {salesperson.last_name}
             </option>
@@ -63,7 +90,7 @@ function Salesperson() {
         </thead>
         <tbody>
           {sales
-            .filter((sale) => sale.salesperson.first_name === firstName)
+            .filter((sale) => sale.salesperson.id === setFiltersales)
             .map((sale) => (
               <tr key={sale.id}>
                 <td>
