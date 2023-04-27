@@ -1,48 +1,33 @@
 import React, { useState, useEffect } from "react";
 
 function Salesperson() {
-  const [salespersons, setSalespersons] = useState([]);
+  const [salespeople, setSalespeople] = useState([]);
   const [sales, setSales] = useState([]);
-  const [firstName, setFirstName] = useState("");
+  const [filteredSales, setFilteredSales] = useState([]);
 
-  const fetchSalesData = async () => {
-    try {
-      const salesUrl = "http://localhost:8090/api/sales";
-      const response = await fetch(salesUrl);
-      if (response.ok) {
-        const data = await response.json();
-        setSales(data.sales);
-      } else {
-        throw new Error("Failed to fetch sales data");
-      }
-    } catch (error) {
-      console.error(error);
+  const fetchData = async () => {
+    const response = await fetch("http://localhost:8090/api/salespeople");
+    const salesResponse = await fetch("http://localhost:8090/api/sales/");
+
+    if (response.ok) {
+      const data = await response.json();
+      setSalespeople(data.salespeople);
     }
-  };
-
-  const fetchSalespersonData = async () => {
-    try {
-      const salespersonUrl = "http://localhost:8090/api/salespeople/";
-      const response = await fetch(salespersonUrl);
-      if (response.ok) {
-        const data = await response.json();
-        setSalespersons(data.salespersons);
-      } else {
-        throw new Error("Failed to fetch salesperson data");
-      }
-    } catch (error) {
-      console.error(error);
+    if (salesResponse.ok) {
+      const salesData = await salesResponse.json();
+      setSales(salesData.sales);
     }
   };
 
   useEffect(() => {
-    fetchSalesData();
-    fetchSalespersonData();
+    fetchData();
   }, []);
 
   const handleSalespersonChange = (event) => {
-    const value = event.target.value;
-    setFirstName(value);
+    const person = event.target.value;
+    const filtered = sales.filter((sale) => sale.salesperson_id == person);
+    setFilteredSales(filtered);
+    console.log(filtered);
   };
 
   return (
@@ -54,14 +39,14 @@ function Salesperson() {
         <select
           className="form-select"
           onChange={handleSalespersonChange}
-          value={firstName}
+          value={filteredSales}
           name="salesperson"
           required
           id="salesperson"
         >
           <option value="">Select salesperson</option>
-          {salespersons.map((salesperson) => (
-            <option key={salesperson.id} value={salesperson.first_name}>
+          {salespeople.map((salesperson) => (
+            <option key={salesperson.id} value={salesperson.id}>
               {salesperson.first_name} {salesperson.last_name}
             </option>
           ))}
