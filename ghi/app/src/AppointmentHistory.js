@@ -89,6 +89,7 @@ class AppointmentHistory extends React.Component {
                                     );
 
                                 }
+                                
                                 if(appointment.vin !==this.state.search)
                                 { vin = 'd-none'}
 
@@ -97,7 +98,8 @@ class AppointmentHistory extends React.Component {
                                         <td>{appointment.vin}</td>
                                         <td>{appointment.vip_status ? "YES" : "NO"} </td>
                                         <td>{appointment.customer}</td>
-                                        <td>{appointment.date_time | ""} </td>
+                                        <td>{date} </td>
+                                        <td>{time} </td>
                                         <td>{appointment.technician.employee_id}</td>
                                         <td>{appointment.reason}</td>
                                         <td>{appointment.status}</td>
