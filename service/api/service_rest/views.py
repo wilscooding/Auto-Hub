@@ -80,7 +80,6 @@ def list_appointments(request):
             response.status_code = 400
             return response
         
-        content["vip_status"] = AutomobileVO.objects.filter(vin=content["vin"]).exists()
         appointment = Appointment.objects.create(**content)
         
         return JsonResponse(

@@ -15,7 +15,7 @@ class Appointment(models.Model):
     reason = models.CharField(max_length=100)
     status = models.CharField(max_length=100, default="active")
     customer = models.URLField(null=True)
-    vin = models.CharField(max_length=17, unique=True)
+    vin = models.CharField(max_length=17)
     technician = models.ForeignKey(
         Technician,
         related_name="technician",
