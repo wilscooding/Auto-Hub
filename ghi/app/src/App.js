@@ -14,8 +14,12 @@ import ManuList from "./ManuList";
 import ModelsForm from "./ModelsForm";
 import ModelsList from "./ModelList";
 import SalesHistory from "./SaleHistory";
-
-function App() {
+import TechnicianList from './TechnicianList';
+import TechnicianForm from './TechnicianForm';
+import AppointmentForm from './AppointmentForm';
+import AppointmentList from './AppointmentList';
+import AppointmentHistory from './AppointmentHistory';
+function App(props) {
   return (
     <BrowserRouter>
       <Nav />
@@ -47,6 +51,16 @@ function App() {
             <Route index element={<SaleList />}></Route>
             <Route path="new/" element={<SaleForm />}></Route>
             <Route path="history" element={<SalesHistory   />}/>
+          </Route>
+          <Route path="technicians">
+            <Route index element={<TechnicianList technicians={props.technicians} />} />
+            <Route path="new" element={<TechnicianForm />} />
+          </Route>
+          <Route path="appointments">
+            <Route index element={<AppointmentList appointments={props.appointments} />} />
+            <Route path="history" element={<AppointmentHistory appointments={props.appointments} />} />
+            <Route path="new" element={<AppointmentForm />} />
+
           </Route>
         </Routes>
       </div>
