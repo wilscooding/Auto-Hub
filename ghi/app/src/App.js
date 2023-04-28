@@ -7,18 +7,18 @@ import SaleForm from "./saleForm";
 import SaleList from "./saleList";
 import SalesPeopleList from "./salesPeopleList";
 import SalesPeopleForm from "./salesPeopleForm";
-import AutoForm from "./AutoForm";
-import AutoList from "./AutoList";
-import ManuForm from "./ManuForm";
-import ManuList from "./ManuList";
+import AutoForm from "./AutomobileForm";
+import AutoList from "./AutotomobileList";
+import ManuForm from "./ManufacturerForm";
+import ManuList from "./ManufacturerList";
 import ModelsForm from "./ModelsForm";
 import ModelsList from "./ModelList";
 import SalesHistory from "./SaleHistory";
-import TechnicianList from './TechnicianList';
-import TechnicianForm from './TechnicianForm';
-import AppointmentForm from './AppointmentForm';
-import AppointmentList from './AppointmentList';
-import AppointmentHistory from './AppointmentHistory';
+import TechnicianList from "./TechnicianList";
+import TechnicianForm from "./TechnicianForm";
+import AppointmentForm from "./AppointmentForm";
+import AppointmentList from "./AppointmentList";
+import AppointmentHistory from "./AppointmentHistory";
 function App(props) {
   return (
     <BrowserRouter>
@@ -50,17 +50,25 @@ function App(props) {
           <Route path="sales/">
             <Route index element={<SaleList />}></Route>
             <Route path="new/" element={<SaleForm />}></Route>
-            <Route path="history" element={<SalesHistory   />}/>
+            <Route path="history" element={<SalesHistory />} />
           </Route>
           <Route path="technicians">
-            <Route index element={<TechnicianList technicians={props.technicians} />} />
+            <Route
+              index
+              element={<TechnicianList technicians={props.technicians} />}
+            />
             <Route path="new" element={<TechnicianForm />} />
           </Route>
           <Route path="appointments">
-            <Route index element={<AppointmentList appointments={props.appointments} />} />
-            <Route path="history" element={<AppointmentHistory appointments={props.appointments} />} />
+            <Route
+              index
+              element={<AppointmentList appointments={props.appointments} />}
+            />
+            <Route
+              path="history"
+              element={<AppointmentHistory appointments={props.appointments} />}
+            />
             <Route path="new" element={<AppointmentForm />} />
-
           </Route>
         </Routes>
       </div>

@@ -17,10 +17,10 @@ function ManusList() {
     fetchData();
   }, []);
 
-  const handleDeleteButton = async (e) => {
-    const { id } = e.target;
-    alert("Tech deleted!");
-    const locationUrl = `http://localhost:8080/api/technicians/${id}`;
+  const handleDeleteButton = async (event) => {
+    const { id } = event.target;
+
+    const locationUrl = `http://localhost:8100/api/manufacturers/${id}`;
     const fetchConfig = {
       method: "delete",
       headers: {
@@ -33,10 +33,6 @@ function ManusList() {
       const data = await response.json();
       setFiles(files.filter((man) => man.id !== parseInt(id)));
     }
-  };
-  const styleObj = {
-    width: 100,
-    borderRadius: 10,
   };
 
   return (

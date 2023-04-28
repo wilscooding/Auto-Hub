@@ -1,113 +1,116 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-function Salesperson() {
-  const [salesPeople, setSalespeople] = useState([]);
+function SalesHistory() {
+  const [salespeople, setSalespeople] = useState([]);
   const [sales, setSales] = useState([]);
-  const [filterSales, setFiltersales] = useState("");
+  const [salesperson, setSalesperson] = useState("");
+  const [filterTerm, setFilterTerm] = useState("");
 
-  // const fetchSalesData = async () => {
-  //   try {
-  //     const salesUrl = "http://localhost:8090/api/sales";
-  //     const response = await fetch(salesUrl);
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       setSales(data.sales);
-  //     } else {
-  //       throw new Error("Failed to fetch sales data");
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // const fetchSalespersonData = async () => {
-  //   try {
-  //     const salespersonUrl = "http://localhost:8090/api/salespeople/";
-  //     const response = await fetch(salespersonUrl);
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       setSalespersons(data.salespersons);
-  //     } else {
-  //       throw new Error("Failed to fetch salesperson data");
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  const fetchData = async () => {
-    const response = await fetch("http://localhost:8090/api/salespeople");
-    const salesResponse = await fetch("http://localhost:8090/api/sales/");
+  const fetchSalespeopleData = async () => {
+    const url = "http://localhost:8090/api/salespeople/";
+    const response = await fetch(url);
 
     if (response.ok) {
       const data = await response.json();
       setSalespeople(data.salespeople);
     }
-    if (salesResponse.ok) {
-      const salesData = await salesResponse.json();
-      setSales(salesData.sales);
+  };
+
+  const fetchSalesData = async () => {
+    const url = "http://localhost:8090/api/sales/";
+    const response = await fetch(url);
+
+    if (response.ok) {
+      const data = await response.json();
+      setSales(data.sales);
     }
   };
 
   useEffect(() => {
-    fetchData();
+    fetchSalespeopleData();
   }, []);
 
+  useEffect(() => {
+    fetchSalesData();
+  }, []);
 
   const handleSalespersonChange = (event) => {
     const value = event.target.value;
-    setFiltersales(value);
+    setSalesperson(value);
   };
 
+  const handleFilterChange = (event) => {
+    const value = event.target.value;
+    setFilterTerm(value);
+  };
+
+  const getFilteredSales = (salesperson, sales) => {
+    if (!salesperson) {
+      return sales;
+    }
+    return sales.filter((sale) =>
+      sale.salesperson.employee_id.includes(salesperson)
+    );
+  };
+
+  const filteredSales = getFilteredSales(salesperson, sales);
+
   return (
-    <div>
-      <div>
-        <br />
+    <div className="container">
+      <div className="container d-flex justify-content-around align-items-center">
+        <h1>Salesperson History</h1>
       </div>
       <div className="mb-3">
         <select
-          className="form-select"
           onChange={handleSalespersonChange}
-          value={filterSales}
-          name="salesperson"
+          value={salesperson}
           required
+          name="salesperson"
           id="salesperson"
+          className="form-select"
         >
-          <option value="">Select salesperson</option>
-          {salesPeople.map((salesperson) => (
-            <option key={salesperson.id} value={salesperson.id}>
-              {salesperson.first_name} {salesperson.last_name}
+          <option value="">Choose a salesperson</option>
+          {salespeople.map((salesperson) => (
+            <option key={salesperson.id} value={salesperson.employee_id}>
+              {salesperson.first_name} {salesperson.last_name} -{" "}
+              {salesperson.employee_id}
             </option>
           ))}
         </select>
-      </div>
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>Salesperson</th>
-            <th>Customer</th>
-            <th>VIN</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sales
-            .filter((sale) => sale.salesperson.id === setFiltersales)
-            .map((sale) => (
-              <tr key={sale.id}>
-                <td>
-                  {sale.salesperson.first_name} {sale.salesperson.last_name}
-                </td>
-                <td>
-                  {sale.customer.first_name} {sale.customer.last_name}
-                </td>
-                <td>{sale.automobile.vin}</td>
-                <td>${Number(sale.price).toLocaleString()}</td>
+        <input
+          type="text"
+          placeholder="Search..."
+          onChange={handleFilterChange}
+        />
+        <div>
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>Salesperson</th>
+                <th>Customer</th>
+                <th>Automobile VIN</th>
+                <th>Price</th>
               </tr>
-            ))}
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+              {filteredSales.map((sale) => (
+                <tr key={sale.href}>
+                  <td>
+                    {sale.salesperson.first_name} {sale.salesperson.last_name}
+                  </td>
+                  <td>
+                    {sale.customer.first_name} {sale.customer.last_name}
+                  </td>
+                  <td>{sale.automobile.vin}</td>
+                  <td>${sale.price}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }
 
-export default Salesperson;
+export default SalesHistory;

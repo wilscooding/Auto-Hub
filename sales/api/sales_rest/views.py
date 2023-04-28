@@ -11,24 +11,24 @@ class AutomobileVOEncoder(ModelEncoder):
     properties = ["vin", "sold", "id"]
 
 
-class SalesPersonListEncoder(ModelEncoder):
+class SalesPersonEncoder(ModelEncoder):
     model = Salesperson
     properties = ["first_name", "last_name", "employee_id", "id"]
 
 
-class SalesPersonDetailEncoder(ModelEncoder):
-    model = Salesperson
-    properties = ["first_name", "last_name", "employee_id", "id"]
+# class SalesPersonDetailEncoder(ModelEncoder):
+#     model = Salesperson
+#     properties = ["first_name", "last_name", "employee_id", "id"]
 
 
-class CustomerListEncoder(ModelEncoder):
+class CustomerEncoder(ModelEncoder):
     model = Customer
     properties = ["first_name", "last_name", "address", "phone_number", "id"]
 
 
-class CustomerDetailEncoder(ModelEncoder):
-    model = Customer
-    properties = ["first_name", "last_name", "address", "phone_number", "id"]
+# class CustomerDetailEncoder(ModelEncoder):
+#     model = Customer
+#     properties = ["first_name", "last_name", "address", "phone_number", "id"]
 
 
 class SaleListEncoder(ModelEncoder):
@@ -36,8 +36,8 @@ class SaleListEncoder(ModelEncoder):
     properties = ["automobile", "salesperson", "customer", "price", "id"]
     encoders = {
         "automobile": AutomobileVOEncoder(),
-        "salesperson": SalesPersonDetailEncoder(),
-        "customer": CustomerDetailEncoder(),
+        "salesperson": SalesPersonEncoder(),
+        "customer": CustomerEncoder(),
     }
 
 
@@ -47,14 +47,14 @@ def api_list_salespeople(request):
         salespeople = Salesperson.objects.all()
         return JsonResponse(
             {"salespeople": salespeople},
-            encoder=SalesPersonDetailEncoder,
+            encoder=SalesPersonEncoder,
         )
     else:
         content = json.loads(request.body)
         salespeoples = Salesperson.objects.create(**content)
         return JsonResponse(
             salespeoples,
-            encoder=SalesPersonDetailEncoder,
+            encoder=SalesPersonEncoder,
             safe=False,
         )
 
@@ -66,7 +66,7 @@ def api_show_salespeople(request, id):
             salesperson = Salesperson.objects.get(id=id)
             return JsonResponse(
                 salesperson,
-                encoder=SalesPersonDetailEncoder,
+                encoder=SalesPersonEncoder,
                 safe=False,
             )
         except Salesperson.DoesNotExist:
@@ -85,7 +85,7 @@ def api_list_customers(request):
         customers = Customer.objects.all()
         return JsonResponse(
             {"customers": customers},
-            encoder=CustomerDetailEncoder,
+            encoder=CustomerEncoder,
         )
 
     else:
@@ -93,7 +93,7 @@ def api_list_customers(request):
         customer = Customer.objects.create(**content)
         return JsonResponse(
             customer,
-            encoder=CustomerDetailEncoder,
+            encoder=CustomerEncoder,
             safe=False,
         )
 
@@ -104,7 +104,7 @@ def api_show_customers(request, id):
         customers = Customer.objects.get(id=id)
         return JsonResponse(
             customers,
-            encoder=CustomerDetailEncoder,
+            encoder=CustomerEncoder,
             safe=False,
         )
     else:
@@ -120,7 +120,6 @@ def api_list_sales(request):
     elif request.method == "POST":
         try:
             content = json.loads(request.body)
-
             vin = content.get("automobile")
             print(vin)
             if not vin:

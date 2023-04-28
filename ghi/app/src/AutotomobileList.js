@@ -17,8 +17,8 @@ function AutoList() {
     fetchData();
   }, []);
 
-  const handleDeleteButton = async (e) => {
-    const { id } = e.target;
+  const handleDeleteButton = async (event) => {
+    const { id } = event.target;
 
     alert("Tech deleted!");
     const locationUrl = `http://localhost:8100/api/automobiles/${id}`;
