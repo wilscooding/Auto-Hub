@@ -25,7 +25,6 @@ class AppointmentHistory extends React.Component {
 
         if (response.ok) {
             const data = await response.json();
-            console.log(data)
             this.setState({ appointments: data.appointments });
         }
     }

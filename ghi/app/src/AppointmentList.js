@@ -26,9 +26,7 @@ class AppointmentList extends React.Component{
     };
 
       const response = await fetch(finishedUrl, fetchConfig);
-      console.log(response)
       if (response.ok) {
-        console.log("finished");
         let {appointments} = this.state
         this.setState({appointments})
         window.location.reload(false);
@@ -47,9 +45,7 @@ class AppointmentList extends React.Component{
     };
 
       const response = await fetch(canceledUrl, fetchConfig);
-      console.log(response)
       if (response.ok) {
-        console.log("canceled");
         let {appointments} = this.state
         this.setState({appointments})
         window.location.reload(false);
