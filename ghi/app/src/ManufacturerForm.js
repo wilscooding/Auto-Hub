@@ -9,9 +9,7 @@ function ManuForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // create an empty JSON object
     const data = {};
-
     data.name = name;
 
     const manuUrl = "http://localhost:8100/api/manufacturers/";

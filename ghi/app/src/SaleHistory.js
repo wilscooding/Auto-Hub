@@ -4,7 +4,6 @@ function SalesHistory() {
   const [salespeople, setSalespeople] = useState([]);
   const [sales, setSales] = useState([]);
   const [salesperson, setSalesperson] = useState("");
-  const [filterTerm, setFilterTerm] = useState("");
 
   const fetchSalespeopleData = async () => {
     const url = "http://localhost:8090/api/salespeople/";
@@ -37,11 +36,6 @@ function SalesHistory() {
   const handleSalespersonChange = (event) => {
     const value = event.target.value;
     setSalesperson(value);
-  };
-
-  const handleFilterChange = (event) => {
-    const value = event.target.value;
-    setFilterTerm(value);
   };
 
   const getFilteredSales = (salesperson, sales) => {
@@ -77,11 +71,7 @@ function SalesHistory() {
             </option>
           ))}
         </select>
-        <input
-          type="text"
-          placeholder="Search..."
-          onChange={handleFilterChange}
-        />
+
         <div>
           <table className="table table-striped">
             <thead>
