@@ -143,4 +143,3 @@ class AppointmentForm extends React.Component {
 }
 
 export default AppointmentForm;
-

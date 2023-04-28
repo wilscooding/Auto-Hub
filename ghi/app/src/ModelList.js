@@ -17,9 +17,9 @@ function ModelsList() {
     fetchData();
   }, []);
 
-  const handleDeleteButton = async (e) => {
-    const { id } = e.target;
-    alert("Tech deleted!");
+  const handleDeleteButton = async (event) => {
+    const { id } = event.target;
+
     const locationUrl = `http://localhost:8100/api/models/${id}`;
     const fetchConfig = {
       method: "delete",
