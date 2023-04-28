@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 function CustomerList() {
   const [customers, setCustomers] = useState([]);
-  const [customer, setCustomer] = useState("");
 
   const fetchData = async () => {
     const url = "http://localhost:8090/api/customers/";
@@ -13,6 +12,16 @@ function CustomerList() {
       setCustomers(data.customers);
     }
   };
+
+  const deleteCustomer = async (event, id) => {
+    event.preventDefault();
+    const url = `http://localhost:8090/api/customers/${id}/`;
+    const response = await fetch(url, { method: "DELETE" });
+    if (response.ok) {
+      setCustomers(customers.filter((customer) => customer.id !== id));
+    }
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -37,6 +46,14 @@ function CustomerList() {
                 <td>{customer.last_name}</td>
                 <td>{customer.phone_number}</td>
                 <td>{customer.address}</td>
+                <td>
+                  <button
+                    className="btn btn-danger"
+                    onClick={(event) => deleteCustomer(event, customer.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             );
           })}

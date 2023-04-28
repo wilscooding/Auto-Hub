@@ -30,7 +30,6 @@ function ModelsList() {
 
     const response = await fetch(locationUrl, fetchConfig);
     if (response.ok) {
-      const data = await response.json();
       setFiles(files.filter((model) => model.id !== parseInt(id)));
     }
   };

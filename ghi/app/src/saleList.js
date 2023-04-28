@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 function SaleList() {
   const [sales, setSales] = useState([]);
-  // const [sale, setSale] = useState('');
 
   const fetchData = async () => {
     const salesUrl = "http://localhost:8090/api/sales/";
@@ -13,6 +12,7 @@ function SaleList() {
       setSales(salesData.sales);
     }
   };
+
   useEffect(() => {
     fetchData();
   }, []);

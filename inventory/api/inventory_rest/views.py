@@ -156,7 +156,7 @@ def api_manufacturer(request, pk):
 
 
 @require_http_methods(["PUT"])
-def api_automobile_sold(request, vin):
+def api_sold_automobile(request, vin):
     auto = Automobile.objects.get(vin=vin)
     auto.sold = True
     auto.save()

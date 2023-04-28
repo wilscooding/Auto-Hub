@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 function SalesPeopleList() {
   const [sales, setSales] = useState([]);
-  // const [sale, setSale] = useState('');
 
   const fetchData = async () => {
     const url = "http://localhost:8090/api/salespeople/";
