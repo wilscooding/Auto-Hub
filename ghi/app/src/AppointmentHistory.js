@@ -21,14 +21,14 @@ class AppointmentHistory extends React.Component {
 
     const response = await fetch(url);
 
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data);
-      this.setState({ appointments: data.appointments });
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data)
+            this.setState({ appointments: data.appointments });
+        }
     }
-  }
-  async handleSearch(event) {
-    event.preventDefault();
+    async handleSearch(event) {
+        event.preventDefault();
 
     const searchUrl = `http://localhost:8080/api/appointments/history/`;
     const fetchConfig = {

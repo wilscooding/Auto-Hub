@@ -77,11 +77,6 @@ function SalesHistory() {
             </option>
           ))}
         </select>
-        <input
-          type="text"
-          placeholder="Search..."
-          onChange={handleFilterChange}
-        />
         <div>
           <table className="table table-striped">
             <thead>

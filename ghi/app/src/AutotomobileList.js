@@ -17,19 +17,6 @@ function AutoList() {
     fetchData();
   }, []);
 
-  const handleDeleteButton = async (event) => {
-    const { id } = event.target;
-
-    alert("Tech deleted!");
-    const locationUrl = `http://localhost:8100/api/automobiles/${id}`;
-    const fetchConfig = {
-      method: "delete",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-  };
-
   return (
     <table className="table table-striped">
       <thead>
@@ -51,7 +38,7 @@ function AutoList() {
               <td>{auto.year}</td>
               <td>{auto.model.name}</td>
               <td>{auto.model.manufacturer.name}</td>
-              <td>{auto.sold}</td>
+              <td>{auto.sold ? "YES" : "NO"}</td>
             </tr>
           );
         })}
