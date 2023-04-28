@@ -43,8 +43,6 @@ class AppointmentForm extends React.Component {
     };
     const appointmentResponse = await fetch(appointmentsUrl, fetchConfig);
     if (appointmentResponse.ok) {
-      const newAppointment = appointmentResponse.json;
-      console.log(newAppointment);
       this.setState({
         vin: "",
         customer: "",

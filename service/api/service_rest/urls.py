@@ -8,5 +8,4 @@ urlpatterns = [
     path("appointments/", list_appointments, name="list_appointments"),
     path("appointments/new", list_appointments, name="list_appointments"),
     path("appointments/<int:id>", show_appointment, name="show_appointment"),
-    # path("appointments/<int:id>/finish", finish_appointment, name="finish_appointment")
 ]

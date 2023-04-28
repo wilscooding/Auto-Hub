@@ -1,44 +1,9 @@
 from django.shortcuts import render
 import json
 from django.views.decorators.http import require_http_methods
-from common.json import ModelEncoder
 from django.http import JsonResponse
 from .models import Salesperson, Customer, Sale, AutomobileVO
-
-
-class AutomobileVOEncoder(ModelEncoder):
-    model = AutomobileVO
-    properties = ["vin", "sold", "id"]
-
-
-class SalesPersonEncoder(ModelEncoder):
-    model = Salesperson
-    properties = ["first_name", "last_name", "employee_id", "id"]
-
-
-# class SalesPersonDetailEncoder(ModelEncoder):
-#     model = Salesperson
-#     properties = ["first_name", "last_name", "employee_id", "id"]
-
-
-class CustomerEncoder(ModelEncoder):
-    model = Customer
-    properties = ["first_name", "last_name", "address", "phone_number", "id"]
-
-
-# class CustomerDetailEncoder(ModelEncoder):
-#     model = Customer
-#     properties = ["first_name", "last_name", "address", "phone_number", "id"]
-
-
-class SaleListEncoder(ModelEncoder):
-    model = Sale
-    properties = ["automobile", "salesperson", "customer", "price", "id"]
-    encoders = {
-        "automobile": AutomobileVOEncoder(),
-        "salesperson": SalesPersonEncoder(),
-        "customer": CustomerEncoder(),
-    }
+from .encoders import SaleListEncoder, SalesPersonEncoder, CustomerEncoder
 
 
 @require_http_methods(["GET", "POST"])
@@ -121,7 +86,6 @@ def api_list_sales(request):
         try:
             content = json.loads(request.body)
             vin = content.get("automobile")
-            print(vin)
             if not vin:
                 return JsonResponse(
                     {"message": "Missing automobile key in the request body"},
@@ -134,7 +98,6 @@ def api_list_sales(request):
                 return JsonResponse({"message": "Invalid vin"}, status=404)
 
             customers = content.get("customer")
-            print(customers)
             if not customers:
                 return JsonResponse(
                     {"message": "Missing customer key in the request body"}, status=400
@@ -149,7 +112,6 @@ def api_list_sales(request):
                 return JsonResponse({"message": "Invalid customer id"}, status=404)
 
             salesperson = content.get("salesperson")
-            print(salesperson)
             if not salesperson:
                 return JsonResponse(
                     {"message": "Missing salesperson key in the request body"},

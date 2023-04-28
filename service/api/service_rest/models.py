@@ -1,14 +1,16 @@
 from django.db import models
 
-# Create your models here.
+
 class Technician(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     employee_id = models.CharField(max_length=100)
 
+
 class AutomobileVO(models.Model):
     vin = models.CharField(max_length=17, unique=True)
-    import_href = models.CharField(max_length=100,unique=True)
+    import_href = models.CharField(max_length=100, unique=True)
+
 
 class Appointment(models.Model):
     date_time = models.DateTimeField()

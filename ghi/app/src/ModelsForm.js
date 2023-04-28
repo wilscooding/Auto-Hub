@@ -20,7 +20,6 @@ function ModelsForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // create an empty JSON object
     const data = {};
 
     data.name = name;
@@ -38,8 +37,6 @@ function ModelsForm() {
 
     const response = await fetch(hatsUrl, fetchConfig);
     if (response.ok) {
-      const newLocation = await response.json();
-      console.log(newLocation);
       setName("");
       setPicture("");
       setManufact("");

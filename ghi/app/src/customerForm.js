@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 function CustomerForm() {
   const [firstName, setFirstName] = useState("");
@@ -33,8 +33,6 @@ function CustomerForm() {
     data.phone_number = phoneNumber;
     data.address = address;
 
-    console.log(data);
-
     const url = "http://localhost:8090/api/customers/";
     const fetchConfig = {
       method: "post",
@@ -46,7 +44,6 @@ function CustomerForm() {
 
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      const newCustomer = await response.json();
       setFirstName("");
       setLastName("");
       setAddress("");
@@ -79,7 +76,7 @@ function CustomerForm() {
                 placeholder="last name"
                 required
                 type="text"
-                id="name"
+                id="first_name"
                 className="form-control"
               />
               <label htmlFor="last_name">Last Name</label>
@@ -91,7 +88,7 @@ function CustomerForm() {
                 placeholder="phone number"
                 required
                 type="text"
-                id="name"
+                id="last_name"
                 className="form-control"
               />
               <label htmlFor="phone">Phone Number</label>
@@ -103,7 +100,7 @@ function CustomerForm() {
                 placeholder="address"
                 required
                 type="text"
-                id="name"
+                id="phone"
                 className="form-control"
               />
               <label htmlFor="address">Address</label>

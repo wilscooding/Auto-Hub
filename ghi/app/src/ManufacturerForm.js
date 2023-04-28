@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 function ManuForm() {
   const [name, setName] = useState("");
 
@@ -23,7 +23,6 @@ function ManuForm() {
 
     const response = await fetch(manuUrl, fetchConfig);
     if (response.ok) {
-      const newName = await response.json();
       setName("");
     }
   };

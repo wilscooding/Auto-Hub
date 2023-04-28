@@ -3,7 +3,7 @@ from service_rest.models import Technician, Appointment, AutomobileVO
 from django.test import TransactionTestCase, Client
 
 class Tests(TransactionTestCase):
-    ####TECHNICIANS ENDPOINTS
+   
     def test_sales_people_list(self):
         Technician.objects.create(first_name="first", last_name="last", employee_id=1111)
 
@@ -37,7 +37,7 @@ class Tests(TransactionTestCase):
         response = client.delete("/api/technicians/1/")
         self.assertTrue(response.status_code == 404 or response.status_code == 400, msg="Did not get a 404 OK technicians delete of an unknown id.")
 
-    ####APPOINTMENT ENDPOINTS
+
     def test_appointment_list(self):
         tech = Technician.objects.create(first_name="first", last_name="last", employee_id=1)
         appointment = Appointment.objects.create(date_time="2023-04-20T14:39:00.000Z", reason="reason code 1", vin="2222", customer="Warren Longmire", technician=tech)

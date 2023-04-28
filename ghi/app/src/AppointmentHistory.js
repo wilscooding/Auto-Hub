@@ -18,26 +18,22 @@ class AppointmentHistory extends React.Component {
 
   async componentDidMount() {
     const url = "http://localhost:8080/api/appointments/";
-
     const response = await fetch(url);
-
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       this.setState({ appointments: data.appointments });
     }
   }
   async handleSearch(event) {
     event.preventDefault();
-
     const searchUrl = `http://localhost:8080/api/appointments/history/`;
     const fetchConfig = {
       method: "get",
     };
 
     const response = await fetch(searchUrl, fetchConfig);
-    console.log(response);
   }
+
   render() {
     return (
       <>
@@ -87,7 +83,6 @@ class AppointmentHistory extends React.Component {
                   { timeStyle: "short" }
                 );
                 let vin = "";
-
                 if (this.state.search === "") {
                   return (
                     <tr key={appointment.id}>
@@ -102,11 +97,9 @@ class AppointmentHistory extends React.Component {
                     </tr>
                   );
                 }
-
                 if (appointment.vin !== this.state.search) {
                   vin = "d-none";
                 }
-
                 return (
                   <tr className={vin} key={appointment.id}>
                     <td>{appointment.vin}</td>

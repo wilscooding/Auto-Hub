@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 function SaleForm() {
-  const [sales, setSales] = useState([]);
   const [sale, setSale] = useState("");
   const [autos, setAutos] = useState("");
   const [auto, setAuto] = useState([]);
@@ -28,10 +27,6 @@ function SaleForm() {
     const value = event.target.value;
     setCustomer(value);
   };
-  //   const handleSaleChange = (event) => {
-  //     const value = event.target.value;
-  //     setSale(value);
-  //   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -42,10 +37,7 @@ function SaleForm() {
     data.salesperson = salesperson;
     data.price = price;
 
-    console.log(data);
-
     const salesUrl = "http://localhost:8090/api/sales/";
-
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(data),
@@ -56,11 +48,22 @@ function SaleForm() {
 
     const response = await fetch(salesUrl, fetchConfig);
     if (response.ok) {
-      const newSale = await response.json();
       setCustomer("");
       setSalesperson("");
       setPrice("");
       setAutos("");
+    }
+
+    const autoUrl = `http://localhost:8100/api/automobiles/${autos}/sold`;
+    const fetchAutoConfig = {
+      method: "put",
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+
+    const autoResponse = await fetch(autoUrl, fetchAutoConfig);
+    if (autoResponse.ok) {
     }
   };
   const fetchData = async () => {
@@ -112,11 +115,14 @@ function SaleForm() {
                 >
                   <option value="">Choose a vin</option>
                   {auto.map((automobile) => {
-                    return (
-                      <option key={automobile.vin} value={automobile.vin}>
-                        {automobile.vin}
-                      </option>
-                    );
+                    if (!automobile.sold) {
+                      return (
+                        <option key={automobile.vin} value={automobile.vin}>
+                          {automobile.vin}
+                        </option>
+                      );
+                    }
+                    return null;
                   })}
                 </select>
               </div>

@@ -63,7 +63,7 @@ def api_automobile(request, vin):
             )
         except Automobile.DoesNotExist:
             return JsonResponse({"message": "Does not exist"})
-    else: # PUT
+    else:
         try:
             content = json.loads(request.body)
             auto = Automobile.objects.get(vin=vin)
@@ -134,7 +134,7 @@ def api_manufacturer(request, pk):
             )
         except Manufacturer.DoesNotExist:
             return JsonResponse({"message": "Does not exist"})
-    else: # PUT
+    else:
         try:
             content = json.loads(request.body)
             manufacturer = Manufacturer.objects.get(id=pk)
@@ -153,6 +153,18 @@ def api_manufacturer(request, pk):
             response = JsonResponse({"message": "Does not exist"})
             response.status_code = 404
             return response
+
+
+@require_http_methods(["PUT"])
+def api_automobile_sold(request, vin):
+    auto = Automobile.objects.get(vin=vin)
+    auto.sold = True
+    auto.save()
+    return JsonResponse(
+        auto,
+        encoder=AutomobileEncoder,
+        safe=False,
+    )
 
 
 @require_http_methods(["GET", "POST"])
@@ -208,7 +220,7 @@ def api_vehicle_model(request, pk):
             )
         except VehicleModel.DoesNotExist:
             return JsonResponse({"message": "Does not exist"})
-    else: # PUT
+    else:
         try:
             content = json.loads(request.body)
             model = VehicleModel.objects.get(id=pk)
