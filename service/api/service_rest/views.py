@@ -1,41 +1,9 @@
 from django.shortcuts import render
-from service_rest.models import AutomobileVO, Technician, Appointment
-from common.json import ModelEncoder
+from service_rest.models import  Technician, Appointment
+from .encoders import TechnicianEncoder, AppointmentEncoder
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 import json
-
-class AutomobileVOEncoder(ModelEncoder):
-    model = AutomobileVO
-    properties =[
-        "vin",
-        "import_href",
-    ]
-class TechnicianEncoder(ModelEncoder):
-    model = Technician
-    properties =[
-        "first_name",
-        "last_name",
-        "employee_id",
-    ]
-class AppointmentEncoder(ModelEncoder):
-    model = Appointment
-    properties = [
-        "date_time",
-        "reason",
-        "status",
-        "customer",
-        "vin",
-        "id",
-        "technician",
-
-    ]
-    encoders={
-        "technician":TechnicianEncoder(),
-    }
-    def get_extra_data(self, o):
-        count = AutomobileVO.objects.filter(vin=o.vin).count()
-        return {"vip_status": count > 0}
 
 
 
