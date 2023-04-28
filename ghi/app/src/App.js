@@ -8,10 +8,10 @@ import SaleList from "./saleList";
 import SalesPeopleList from "./salesPeopleList";
 import SalesPeopleForm from "./salesPeopleForm";
 import AutoForm from "./AutomobileForm";
-import AutoList from "./AutotomobileList";
-import ManuForm from "./ManufacturerForm";
-import ManuList from "./ManufacturerList";
-import ModelsForm from "./ModelsForm";
+import AutoList from "./AutomobileList";
+import ManufacturerForm from "./ManufacturerForm";
+import ManufacturerList from "./ManufacturerList";
+import ModelsForm from "./ModelForm";
 import ModelsList from "./ModelList";
 import SalesHistory from "./SaleHistory";
 import TechnicianList from "./TechnicianList";
@@ -19,7 +19,6 @@ import TechnicianForm from "./TechnicianForm";
 import AppointmentForm from "./AppointmentForm";
 import AppointmentList from "./AppointmentList";
 import AppointmentHistory from "./AppointmentHistory";
-
 
 function App(props) {
   return (
@@ -29,8 +28,8 @@ function App(props) {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="manufacturers/">
-            <Route index element={<ManuList />} />
-            <Route path="new/" element={<ManuForm />}></Route>
+            <Route index element={<ManufacturerList />} />
+            <Route path="new/" element={<ManufacturerForm />}></Route>
           </Route>
           <Route path="models/">
             <Route index element={<ModelsList />} />

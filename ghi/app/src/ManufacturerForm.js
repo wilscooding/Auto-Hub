@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-function ManuForm() {
+function ManufacturerForm() {
   const [name, setName] = useState("");
 
   const handleNameChange = (event) => {
@@ -12,7 +12,7 @@ function ManuForm() {
     const data = {};
     data.name = name;
 
-    const manuUrl = "http://localhost:8100/api/manufacturers/";
+    const manufacturerUrl = "http://localhost:8100/api/manufacturers/";
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(data),
@@ -21,7 +21,7 @@ function ManuForm() {
       },
     };
 
-    const response = await fetch(manuUrl, fetchConfig);
+    const response = await fetch(manufacturerUrl, fetchConfig);
     if (response.ok) {
       setName("");
     }
@@ -54,4 +54,4 @@ function ManuForm() {
   );
 }
 
-export default ManuForm;
+export default ManufacturerForm;

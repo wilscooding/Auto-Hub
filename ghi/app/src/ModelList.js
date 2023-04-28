@@ -35,7 +35,7 @@ function ModelsList() {
   };
 
   const styleObj = {
-    width: 100,
+    width: 200,
     borderRadius: 10,
   };
 

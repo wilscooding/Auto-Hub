@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 function ModelsForm() {
   const [name, setName] = useState("");
   const [picture, setPicture] = useState("");
-  const [manufact, setManufact] = useState("");
-  const [manufacts, setManufacts] = useState([]);
+  const [manufacturer, setManufacturer] = useState("");
+  const [manufacturers, setManufacturers] = useState([]);
 
   const handleNameChange = (event) => {
     const value = event.target.value;
@@ -13,9 +13,9 @@ function ModelsForm() {
     const value = event.target.value;
     setPicture(value);
   };
-  const handleManufactChange = (event) => {
+  const handleManufacturerChange = (event) => {
     const value = event.target.value;
-    setManufact(value);
+    setManufacturer(value);
   };
 
   const handleSubmit = async (event) => {
@@ -24,7 +24,7 @@ function ModelsForm() {
 
     data.name = name;
     data.picture_url = picture;
-    data.manufacturer_id = manufact;
+    data.manufacturer_id = manufacturer;
 
     const hatsUrl = "http://localhost:8100/api/models/";
     const fetchConfig = {
@@ -39,7 +39,7 @@ function ModelsForm() {
     if (response.ok) {
       setName("");
       setPicture("");
-      setManufact("");
+      setManufacturer("");
     }
   };
   const fetchData = async () => {
@@ -49,7 +49,7 @@ function ModelsForm() {
 
     if (response.ok) {
       const data = await response.json();
-      setManufacts(data.manufacturers);
+      setManufacturers(data.manufacturers);
     }
   };
 
@@ -89,15 +89,15 @@ function ModelsForm() {
             <div className="mb-3">
               <select
                 className="form-select"
-                onChange={handleManufactChange}
+                onChange={handleManufacturerChange}
                 name="location"
                 id="location"
                 required
                 type="text"
-                value={manufact}
+                value={manufacturer}
               >
                 <option value="">manufacturer</option>
-                {manufacts.map((m) => {
+                {manufacturers.map((m) => {
                   return (
                     <option key={m.href} value={m.id}>
                       {m.name}

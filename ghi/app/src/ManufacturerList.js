@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function ManusList() {
+function ManufacturerList() {
   const [files, setFiles] = useState([]);
 
   const fetchData = async () => {
@@ -31,7 +31,7 @@ function ManusList() {
     const response = await fetch(locationUrl, fetchConfig);
     if (response.ok) {
       const data = await response.json();
-      setFiles(files.filter((man) => man.id !== parseInt(id)));
+      setFiles(files.filter((manufacturer) => manufacturer.id !== parseInt(id)));
     }
   };
 
@@ -44,14 +44,14 @@ function ManusList() {
         </tr>
       </thead>
       <tbody>
-        {files.map((man) => {
+        {files.map((manufacturer) => {
           return (
-            <tr key={man.id}>
-              <td>{man.name}</td>
+            <tr key={manufacturer.id}>
+              <td>{manufacturer.name}</td>
               <td>
                 <button
                   className="btn btn-danger"
-                  id={man.id}
+                  id={manufacturer.id}
                   onClick={handleDeleteButton}
                 >
                   Delete
@@ -65,4 +65,4 @@ function ManusList() {
   );
 }
 
-export default ManusList;
+export default ManufacturerList;

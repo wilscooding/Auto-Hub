@@ -57,7 +57,7 @@ function SalesPersonForm() {
                 placeholder="first name"
                 required
                 type="text"
-                id="name"
+                id="first_name"
                 className="form-control"
               />
               <label htmlFor="first_name">First Name</label>
@@ -69,7 +69,7 @@ function SalesPersonForm() {
                 placeholder="last name"
                 required
                 type="text"
-                id="name"
+                id="last_name"
                 className="form-control"
               />
               <label htmlFor="last_name">Last Name</label>
@@ -78,13 +78,13 @@ function SalesPersonForm() {
               <input
                 onChange={handleEmployeeChange}
                 value={employeeId}
-                placeholder="last name"
+                placeholder="employeeId"
                 required
                 type="number"
-                id="name"
+                id="employeeId"
                 className="form-control"
               />
-              <label htmlFor="last_name">Employee Id</label>
+              <label htmlFor="employeeId">Employee Id</label>
             </div>
 
             <button className="btn btn-primary">Create</button>
