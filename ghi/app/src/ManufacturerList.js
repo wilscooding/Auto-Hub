@@ -36,7 +36,7 @@ function ManufacturerList() {
   };
 
   return (
-    <table className="table table-striped">
+    <table className="table table-striped container">
       <thead>
         <tr>
           <th>Manufacturer</th>

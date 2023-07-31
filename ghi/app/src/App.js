@@ -19,12 +19,13 @@ import TechnicianForm from "./TechnicianForm";
 import AppointmentForm from "./AppointmentForm";
 import AppointmentList from "./AppointmentList";
 import AppointmentHistory from "./AppointmentHistory";
+import "./index.css";
 
 function App(props) {
   return (
     <BrowserRouter>
       <Nav />
-      <div className="container">
+      <div>
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="manufacturers/">
