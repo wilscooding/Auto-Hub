@@ -1,45 +1,47 @@
-AutoHub
+**AutoHub**
 
-Team:
-Yosef Dandis - Service microservice
-Wilkin Ruiz - Sales microservice
+**Team:**
+**Yosef Dandis** - Service microservice
+**Wilkin Ruiz** - Sales microservice
 
-Introduction
+**Introduction**
+
 AutoHub is a comprehensive application that consists of two microservices: Service and Sales. These microservices are designed to efficiently handle different aspects of automobile dealership management, ensuring a seamless experience for both customers and salespersons.
 
-Features
-Service microservice:
+**Features**
 
-Technician Management
-Appointment Scheduling
-Integration with Inventory for VIP Status
+**Service microservice:**
 
-Sales microservice:
+- Technician Management
+- Appointment Scheduling
+- Integration with Inventory for VIP Status
 
-Customer Information Management
-Salesperson Details
-Seamless Inventory Integration for Vehicle Information
-Sale Creation and Tracking
+**Sales microservice:**
 
-Technologies Used
+- Customer Information Management
+- Salesperson Details
+- Seamless Inventory Integration for Vehicle Information
+- Sale Creation and Tracking
+
+**Technologies Used**
 
 Backend: Django for Service and Sales microservices
 Frontend: React for the user interface
 Database: PostgreSQL
 Containerization: Docker
 
-Getting Started
+**Getting Started**
+
 To run the CarCar application locally using Docker, follow these steps:
 
-Clone the repository
-Install Docker on your machine if you haven't already
-Create the Docker volume "beta-data"
-Build the Docker images for the Service and Sales microservices
-Copy code "docker-compose build"
+1. Clone the repository
+2. Install Docker on your machine if you haven't already
+3. Create the Docker volume "beta-data"
+4. Build the Docker images for the Service and Sales microservices
+5. Run the Docker containers
 
-Run the Docker containers
-Copy code "docker-compose up"
 Access the application at http://localhost:3000 (for the React frontend) and the respective microservice endpoints
 
-Acknowledgments
+**Acknowledgments**
+
 We'd like to express our gratitude to all the developers and contributors whose libraries and tools made this project possible.
