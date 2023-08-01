@@ -1,7 +1,10 @@
+![AutoHub GIF](./images/AutoHub.gif)
+
 **AutoHub**
 
 **Team:**
 **Yosef Dandis** - Service microservice
+
 **Wilkin Ruiz** - Sales microservice
 
 **Introduction**
